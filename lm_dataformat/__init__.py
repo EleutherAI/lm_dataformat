@@ -102,7 +102,7 @@ def tarfile_reader(file, streaming=False):
         offset += padded_size
 
 def handle_jsonl(jsonl_reader, get_meta, autojoin_paragraphs, para_joiner, key='text'):
-    for ob in jsonl_reader:
+    for ob in jsonl_reader.iter(type=dict, skip_invalid=True):
         # naive jsonl where each object is just the string itself, with no meta. For legacy compatibility.
         if isinstance(ob, str):
             assert not get_meta
